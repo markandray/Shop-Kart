@@ -1,15 +1,15 @@
 import axios from 'axios'
 
-// Base URL comes from the environment so the same build can point at
-// a local backend during development and a deployed one in production.
-// In production, default to the current origin when the API is served from the
-// same host; otherwise set VITE_API_BASE_URL explicitly.
+// Production uses the Vercel same-origin proxy so browsers keep the auth cookie.
+// Development can point directly at a local or configured backend.
 const BASE_URL =
-  import.meta.env.API_BASE_URL ||
-  import.meta.env.VITE_API_BASE_URL ||
-  (typeof window !== 'undefined' && window.location.hostname !== 'localhost'
-    ? window.location.origin
-    : 'http://localhost:5000')
+  import.meta.env.PROD
+    ? '/api'
+    : import.meta.env.API_BASE_URL ||
+      import.meta.env.VITE_API_BASE_URL ||
+      (typeof window !== 'undefined' && window.location.hostname !== 'localhost'
+        ? window.location.origin
+        : 'http://localhost:5000')
 
 // withCredentials: true is the important bit here — it tells the browser
 // to send (and accept) cookies on cross-origin requests. The backend sets
