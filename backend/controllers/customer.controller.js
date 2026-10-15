@@ -128,7 +128,7 @@ const logoutCustomer = async (req, res) => {
     res.cookie("token", "", {
       httpOnly: true,
       secure: isProduction,
-      sameSite: isProduction ? "lax" : "strict",
+      sameSite: isProduction ? "none" : "strict",
       expires: new Date(0),
     });
 
