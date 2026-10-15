@@ -123,10 +123,12 @@ const getMyProfile = async (req, res) => {
 
 const logoutCustomer = async (req, res) => {
   try {
+    const isProduction = process.env.NODE_ENV === "production";
+
     res.cookie("token", "", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure: isProduction,
+      sameSite: isProduction ? "lax" : "strict",
       expires: new Date(0),
     });
 

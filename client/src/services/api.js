@@ -5,7 +5,7 @@ import axios from 'axios'
 // In production, default to the current origin when the API is served from the
 // same host; otherwise set VITE_API_BASE_URL explicitly.
 const BASE_URL =
-  import.meta.env.API_BASE_URL ||
+  import.meta.env.VITE_API_BASE_URL ||
   (typeof window !== 'undefined' && window.location.hostname !== 'localhost'
     ? window.location.origin
     : 'http://localhost:5000')
